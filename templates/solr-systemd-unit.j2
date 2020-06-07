@@ -1,0 +1,16 @@
+[Unit]
+Description=Apache SOLR
+After=syslog.target network.target remote-fs.target nss-lookup.target
+[Service]
+User=solr
+PIDFile={{ solr_install_dir }}/bin/solr-8983.pid
+ExecStart=/opt/solr/bin/solr start
+WorkingDirectory=/opt/solr/server/solr
+ExecReload=/bin/kill -s HUP $MAINID
+ExecStop=/opt/solr/bin/solr stop
+EnvironmentFile={{ solr_config_file }}
+PrivateTmp=true
+LimitNOFILE=65000
+LimitNPROC=65000
+[Install]
+WantedBy=multi-user.target

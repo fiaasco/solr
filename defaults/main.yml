@@ -1,0 +1,78 @@
+---
+# description: solr version to deploy
+# type: string
+solr_version: "8.4.1"
+
+# description: checksum for the solr archive
+#              conform the ansible get_url checksum format
+# type: string
+solr_checksum: "sha256:ec39e1e024b2e37405149de41e39e875a39bf11a53f506d07d96b47b8d2a4301"
+
+# description: force solr reinstall
+# type: bool
+solr_reinstall: false
+
+# description: install openjdk?
+# type: bool
+solr_installOpenJDK: true
+
+# description: linux user (will be created)
+# type: string
+solr_user: solr
+
+# description: linux group (will be created)
+# type: string
+solr_group: solr
+
+# description: config file location
+# type: string
+solr_config_file: /etc/default/solr
+
+# description: listen host for solr
+# type: string
+solr_host: 127.0.0.1
+
+# description: solr port
+# type: int
+solr_port: 8983
+
+# description: solr hostname to connect to
+# type: string
+solr_connect_host: localhost
+
+# description: base url for the solr downloads
+# type: string
+solr_downloadUrl: https://archive.apache.org/dist/lucene/solr
+
+# description: download path for solr
+# type: string
+solr_downloadPath: "{{ solr_version }}/solr-{{ solr_version }}.tgz"
+
+# description: base directory for installation
+# type: string
+solr_extractPath: /opt
+
+# description: destination to save the downloaded archive
+# type: string
+solr_saveTarPath: "/opt/solr-{{ solr_version }}.tgz"
+
+# description: installation directory
+# type: string
+solr_install_dir: "/opt/solr-{{ solr_version }}"
+
+# description: multicore root directory
+# type: string
+solr_home: /var/lib/solr
+
+# description: uninstall solr?
+# type: bool
+solr_uninstall: false
+
+# description: solr core definition list
+#              item.src is optional, if not defined the solr default config will be used
+# type: list
+# example:
+# solr_cores:
+#   - name: core1
+#     src: /tmp/solr_config
+solr_cores: []

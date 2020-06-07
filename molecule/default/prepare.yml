@@ -1,0 +1,8 @@
+---
+- name: Prepare hosts
+  hosts: all
+  tasks:
+    - name: install required packages
+      apt:
+        name: procps
+        state: present

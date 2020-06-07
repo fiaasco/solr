@@ -1,0 +1,49 @@
+---
+- name: Check current list of Solr cores.
+  uri:
+    url: http://{{ solr_connect_host }}:{{ solr_port }}/solr/admin/cores
+    return_content: true
+  register: solr_cores_current
+  until: solr_cores_current.status == 200
+  retries: 5
+  delay: 5
+  check_mode: false
+
+- name: Create solr cores if required
+  file:
+    path: "{{ solr_home }}/data/{{ item.name }}/conf"
+    state: directory
+    owner: "{{ solr_user }}"
+    group: "{{ solr_group }}"
+    recurse: true
+  when: item.name not in solr_cores_current.content
+  loop: "{{ solr_cores }}"
+
+
+- name: Copy configuration if required
+  command: "cp -r {{ solr_install_dir }}/example/files/conf/ {{ solr_home }}/data/{{ item.name }}/"
+  become: true
+  become_user: "{{ solr_user }}"
+  when: item.name not in solr_cores_current.content
+  loop: "{{ solr_cores }}"
+  notify: restart solr
+
+- name: Create default cores
+  command: "{{ solr_install_dir }}/bin/solr create -c {{ item.name }} -p {{ solr_port }}"
+  become: true
+  become_user: "{{ solr_user }}"
+  when: >
+    item.name not in solr_cores_current.content
+    and item.src is not defined
+  loop: "{{ solr_cores }}"
+  notify: restart solr
+
+- name: Create cores with custom config
+  command: "{{ solr_install_dir }}/bin/solr create -c {{ item.name }} -p {{ solr_port }} -d {{ item.src }}"
+  become: true
+  become_user: "{{ solr_user }}"
+  when: >
+    item.name not in solr_cores_current.content
+    and item.src is defined
+  loop: "{{ solr_cores }}"
+  notify: restart solr

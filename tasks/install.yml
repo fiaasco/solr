@@ -1,0 +1,34 @@
+---
+
+- name: Ensure that solr group is present
+  group:
+    name: "{{ solr_group }}"
+    state: present
+
+- name: Ensure that solr user is present
+  user:
+    name: "{{ solr_user }}"
+    group: "{{ solr_user }}"
+    state: "present"
+    home: "{{ solr_install_dir }}"
+    shell: /bin/false
+
+- name: Ensure that Apache Solr install folder exists
+  file:
+    dest: "{{ solr_install_dir }}"
+    state: directory
+    owner: "{{ solr_user }}"
+    group: "{{ solr_group }}"
+    mode: 0755
+
+- name: Extract Apache Solr
+  unarchive:
+    src: "{{ solr_saveTarPath }}"
+    dest: "{{ solr_extractPath }}"
+    remote_src: true
+
+- name: Symlink to /opt/solr
+  file:
+    src: "{{ solr_install_dir }}"
+    dest: /opt/solr
+    state: link
