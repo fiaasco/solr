@@ -14,7 +14,11 @@ solr_reinstall: false
 
 # description: install openjdk?
 # type: bool
-solr_installOpenJDK: true
+solr_install_openjdk: true
+
+# description: openjdk package name
+# type: string
+solr_openjdk_package: default-jre-headless
 
 # description: linux user (will be created)
 # type: string
@@ -24,9 +28,13 @@ solr_user: solr
 # type: string
 solr_group: solr
 
+# description: service name
+# type: string
+solr_service_name: solr
+
 # description: config file location
 # type: string
-solr_config_file: /etc/default/solr
+solr_config_file: "/etc/default/{{ solr_service_name }}"
 
 # description: listen host for solr
 # type: string
@@ -68,8 +76,14 @@ solr_home: /var/lib/solr
 # type: bool
 solr_uninstall: false
 
+# description: default solr core config source path
+#              can be a directory in files or a path on the ansible host
+#              defaults to a standard included config for drupal 8
+# type: string
+solr_default_core_config_path: drupal8-core
+
 # description: solr core definition list
-#              item.src is optional, if not defined the solr default config will be used
+#              item.src is optional, if not defined the solr_config_config_path will be used
 # type: list
 # example:
 # solr_cores:

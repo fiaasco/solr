@@ -1,4 +1,9 @@
 ---
+- name: copy our default drupal8 config
+  copy:
+    src: drupal8-core/
+    dest: /tmp/core-config/
+
 - name: Check current list of Solr cores.
   uri:
     url: http://{{ solr_connect_host }}:{{ solr_port }}/solr/admin/cores
@@ -19,7 +24,6 @@
   when: item.name not in solr_cores_current.content
   loop: "{{ solr_cores }}"
 
-
 - name: Copy configuration if required
   command: "cp -r {{ solr_install_dir }}/example/files/conf/ {{ solr_home }}/data/{{ item.name }}/"
   become: true
@@ -28,22 +32,19 @@
   loop: "{{ solr_cores }}"
   notify: restart solr
 
-- name: Create default cores
-  command: "{{ solr_install_dir }}/bin/solr create -c {{ item.name }} -p {{ solr_port }}"
+- name: Create cores
+  command:
+    argv:
+      - "{{ solr_install_dir }}/bin/solr"
+      - "create"
+      - "-c"
+      - "{{ item.name }}"
+      - "-p"
+      - "{{ solr_port }}"
+      - "-d"
+      - "{{ item.src|default('/tmp/core-config') }}"
   become: true
   become_user: "{{ solr_user }}"
-  when: >
-    item.name not in solr_cores_current.content
-    and item.src is not defined
-  loop: "{{ solr_cores }}"
-  notify: restart solr
-
-- name: Create cores with custom config
-  command: "{{ solr_install_dir }}/bin/solr create -c {{ item.name }} -p {{ solr_port }} -d {{ item.src }}"
-  become: true
-  become_user: "{{ solr_user }}"
-  when: >
-    item.name not in solr_cores_current.content
-    and item.src is defined
+  when: item.name not in solr_cores_current.content
   loop: "{{ solr_cores }}"
   notify: restart solr

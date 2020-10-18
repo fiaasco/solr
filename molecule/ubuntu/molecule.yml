@@ -6,6 +6,7 @@ driver:
 scenario:
   name: ubuntu
 lint: |
+  set -e
   yamllint .
   ansible-lint molecule/default/*.yml
   flake8
@@ -31,6 +32,7 @@ provisioner:
   inventory:
     group_vars:
       all:
+        solr_service_name: solr8
         solr_cores:
           - name: drupal7
           - name: drupal8

@@ -19,7 +19,7 @@
 - name: Copy systemd unit
   template:
     src: solr-systemd-unit.j2
-    dest: /etc/systemd/system/solr.service
+    dest: "/etc/systemd/system/{{ solr_service_name }}.service"
     owner: root
     group: root
     mode: 0644
@@ -65,6 +65,6 @@
 
 - name: Ensure solr is running
   service:
-    name: solr
+    name: "{{ solr_service_name }}"
     state: started
     enabled: true

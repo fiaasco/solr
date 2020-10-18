@@ -6,6 +6,7 @@ driver:
 scenario:
   name: default
 lint: |
+  set -e
   yamllint .
   ansible-lint molecule/default/*.yml
   flake8

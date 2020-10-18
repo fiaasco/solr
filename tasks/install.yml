@@ -26,9 +26,3 @@
     src: "{{ solr_saveTarPath }}"
     dest: "{{ solr_extractPath }}"
     remote_src: true
-
-- name: Symlink to /opt/solr
-  file:
-    src: "{{ solr_install_dir }}"
-    dest: /opt/solr
-    state: link

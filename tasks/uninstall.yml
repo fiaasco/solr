@@ -1,14 +1,17 @@
 ---
 - name: Uninstall | Stop Apache Solr service
   service:
-    name: solr
+    name: "{{ solr_service_name }}"
     state: stopped
   ignore_errors: true
 
 - name: Uninstall | Remove the systemd unit
   file:
-    path: /etc/systemd/system/solr.service
+    path: "{{ item }}"
     state: absent
+  loop:
+    - "/etc/systemd/system/{{ solr_service_name }}.service"
+    - "/etc/default/{{ solr_service_name }}.service"
 
 - name: Uninstall | Kill all processes run by Solr user
   command: killall -u {{ solr_user }} -w
