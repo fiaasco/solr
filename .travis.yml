@@ -16,4 +16,4 @@ env:
   - SCENARIO=default
   - SCENARIO=ubuntu
 
-script: "molecule test --scenario-name $SCENARIO"
+script: "molecule --debug test --scenario-name $SCENARIO"
