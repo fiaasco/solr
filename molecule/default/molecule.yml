@@ -1,8 +1,6 @@
 ---
 dependency:
   name: galaxy
-driver:
-  name: docker
 scenario:
   name: default
 lint: |
