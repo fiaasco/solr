@@ -29,12 +29,12 @@
     dest: "{{ item }}"
     state: directory
   with_items:
-    - "{{ solr_extractPath }}"
+    - "{{ solr_extract_path }}"
     - "{{ solr_install_dir }}"
 
 - name: Download Apache Solr
   get_url:
-    url: "{{ solr_downloadUrl }}/{{ solr_downloadPath }}"
-    dest: "{{ solr_saveTarPath }}"
+    url: "{{ solr_download_url }}/{{ solr_download_path }}"
+    dest: "{{ solr_tar_path }}"
     checksum: "{{ solr_checksum }}"
   register: download

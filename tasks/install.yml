@@ -23,6 +23,6 @@
 
 - name: Extract Apache Solr
   unarchive:
-    src: "{{ solr_saveTarPath }}"
-    dest: "{{ solr_extractPath }}"
+    src: "{{ solr_tar_path }}"
+    dest: "{{ solr_extract_path }}"
     remote_src: true

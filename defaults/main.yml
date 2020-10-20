@@ -50,19 +50,19 @@ solr_connect_host: localhost
 
 # description: base url for the solr downloads
 # type: string
-solr_downloadUrl: https://archive.apache.org/dist/lucene/solr
+solr_download_url: https://archive.apache.org/dist/lucene/solr
 
 # description: download path for solr
 # type: string
-solr_downloadPath: "{{ solr_version }}/solr-{{ solr_version }}.tgz"
+solr_download_path: "{{ solr_version }}/solr-{{ solr_version }}.tgz"
 
 # description: base directory for installation
 # type: string
-solr_extractPath: /opt
+solr_extract_path: /opt
 
 # description: destination to save the downloaded archive
 # type: string
-solr_saveTarPath: "/opt/solr-{{ solr_version }}.tgz"
+solr_tar_path: "/opt/solr-{{ solr_version }}.tgz"
 
 # description: installation directory
 # type: string
