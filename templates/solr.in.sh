@@ -172,8 +172,10 @@ SOLR_DATA_HOME={{ solr_home }}/data
 # Settings for authentication
 # Please configure only one of SOLR_AUTHENTICATION_CLIENT_BUILDER or SOLR_AUTH_TYPE parameters
 #SOLR_AUTHENTICATION_CLIENT_BUILDER="org.apache.solr.client.solrj.impl.PreemptiveBasicAuthClientBuilderFactory"
-#SOLR_AUTH_TYPE="basic"
-#SOLR_AUTHENTICATION_OPTS="-Dbasicauth=solr:SolrRocks"
+{% if solr_auth %}
+SOLR_AUTH_TYPE="basic"
+SOLR_AUTHENTICATION_OPTS="-Dbasicauth={{ solr_admin_user }}:{{ solr_admin_pass }}"
+{% endif %}
 
 # Settings for ZK ACL
 #SOLR_ZK_CREDS_AND_ACLS="-DzkACLProvider=org.apache.solr.common.cloud.VMParamsAllAndReadonlyDigestZkACLProvider \

@@ -84,9 +84,29 @@ solr_default_core_config_path: drupal8-core
 
 # description: solr core definition list
 #              item.src is optional, if not defined the solr_config_config_path will be used
+#              user and password will only be validated if solr_auth is enabled
 # type: list
 # example:
 # solr_cores:
 #   - name: core1
 #     src: /tmp/solr_config
+#     user: core_user
+#     pass: core_password
 solr_cores: []
+
+# description: enable solr authentication
+# type: bool
+solr_auth: true
+
+# description: solr admin user
+# type: string
+solr_admin_user: fiaasco
+
+# description: solr admin password
+# type: string
+solr_admin_pass: SolrDefaultPass
+
+# description: salt for the solr passwords (32 bit)
+# type: string
+solr_password_salt: ohn1Aec3ooke8choh6feexeej5Abai6a
+#solr_admin_hash: 'wW4EKWvEVjMQtI4/pFINKELUlh9LRoY6KjFYKf/KAnI= MWlbsi/3swsNVq7h4//BxJ6x6K/1ggFR+E06QElQ0Co='

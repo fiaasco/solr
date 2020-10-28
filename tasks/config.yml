@@ -68,3 +68,21 @@
     name: "{{ solr_service_name }}"
     state: started
     enabled: true
+
+- name: Enable security if required
+  template:
+    src: security.json.j2
+    dest: "{{ solr_home }}/security.json"
+    owner: "{{ solr_user }}"
+    group: "{{ solr_group }}"
+    mode: "0640"
+  when: solr_auth
+  notify: restart solr
+
+- name: generate pass
+  set_fact:
+    solr_admin_hash: "{{ solr_admin_pass|password_hash('sha256', solr_password_salt) }}"
+
+- name: debug admin pass
+  debug:
+    msg: "{{ solr_admin_hash|b64encode }}"

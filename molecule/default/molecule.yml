@@ -30,7 +30,11 @@ provisioner:
       all:
         solr_cores:
           - name: drupal7
+            user: d7
+            pass: d7
           - name: drupal8
+            user: d8
+            pass: d8
 verifier:
   name: testinfra
   lint:

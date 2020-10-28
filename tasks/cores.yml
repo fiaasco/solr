@@ -6,8 +6,10 @@
 
 - name: Check current list of Solr cores.
   uri:
-    url: http://{{ solr_connect_host }}:{{ solr_port }}/solr/admin/cores
+    url: "http://{{ solr_connect_host }}:{{ solr_port }}/solr/admin/cores"
     return_content: true
+    url_username: "{{ solr_auth|ternary(solr_admin_user, omit) }}"
+    url_password: "{{ solr_auth|ternary(solr_admin_pass, omit) }}"
   register: solr_cores_current
   until: solr_cores_current.status == 200
   retries: 5

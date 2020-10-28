@@ -1,0 +1,23 @@
+#jinja2: lstrip_blocks: "True (or False)", trim_blocks: "True (or False)"
+{
+"authentication":{ 
+   "blockUnknown": true, 
+   "class":"solr.BasicAuthPlugin",
+   "credentials":{
+      "{{ solr_admin_user }}":"{{ solr_admin_pass|password_hash('sha256', solr_password_salt)|string|b64encode }} {{ solr_password_salt|b64encode }}",
+      {% for c in solr_cores %}
+      {% if c.user is defined and c.pass is defined %}
+      "{{ c.user }}":"{{ c.pass|password_hash('sha256', solr_password_salt)|b64encode }} {{ solr_password_salt|b64encode }}",
+      {% endif %}
+      {% endfor %}
+   }, 
+   "credentials":{}, 
+   "realm":"Auth required", 
+   "forwardCredentials": false 
+},
+"authorization":{
+   "class":"solr.RuleBasedAuthorizationPlugin",
+   "permissions":[{"name":"security-edit",
+      "role":"admin"}], 
+   "user-role":{"{{ solr_admin_user }}":"admin"} 
+}}
