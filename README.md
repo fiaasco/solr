@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.com/fiaasco/solr.svg?branch=master)](https://travis-ci.com/fiaasco/solr)
-
 # Ansible Role: solr
 
 This is an Ansible solr role with systemd support, the service is configured similar to what happens with the solr install\_solr\_service.sh script, but by implementing the code in Ansible it allows systemd support and easier idempotent results.
