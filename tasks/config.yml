@@ -20,8 +20,8 @@
   template:
     src: solr.in.sh.j2
     dest: "{{ solr_install_dir }}/bin/solr.in.sh"
-    owner: root
-    group: root
+    owner: "{{ solr_user }}"
+    group: "{{ solr_group }}"
     mode: 0644
 
 - name: Config | Copy systemd unit
