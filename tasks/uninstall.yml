@@ -18,7 +18,7 @@
   changed_when: false
   ignore_errors: true
 
-- name: uninstall | Delete solr installation folder
+- name: Uninstall | Delete solr installation folder
   file:
     path: "{{ item }}"
     state: absent

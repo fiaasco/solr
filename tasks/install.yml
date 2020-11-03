@@ -1,11 +1,11 @@
 ---
 
-- name: Ensure that solr group is present
+- name: Install | Ensure that solr group is present
   group:
     name: "{{ solr_group }}"
     state: present
 
-- name: Ensure that solr user is present
+- name: Install | Ensure that solr user is present
   user:
     name: "{{ solr_user }}"
     group: "{{ solr_user }}"
@@ -13,7 +13,7 @@
     home: "{{ solr_install_dir }}"
     shell: /bin/false
 
-- name: Ensure that Apache Solr install folder exists
+- name: Install | Ensure that Apache Solr install folder exists
   file:
     dest: "{{ solr_install_dir }}"
     state: directory
@@ -21,7 +21,7 @@
     group: "{{ solr_group }}"
     mode: 0755
 
-- name: Extract Apache Solr
+- name: Install | Extract Apache Solr
   unarchive:
     src: "{{ solr_tar_path }}"
     dest: "{{ solr_extract_path }}"

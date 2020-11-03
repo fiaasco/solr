@@ -44,6 +44,10 @@ solr_host: 127.0.0.1
 # type: int
 solr_port: 8983
 
+# description: solr java memory config
+# type: string
+solr_java_mem: "-Xms512m -Xmx512m"
+
 # description: solr hostname to connect to
 # type: string
 solr_connect_host: localhost
@@ -100,13 +104,12 @@ solr_auth: true
 
 # description: solr admin user
 # type: string
-solr_admin_user: fiaasco
+solr_admin_user: fiaas
 
 # description: solr admin password
 # type: string
-solr_admin_pass: SolrDefaultPass
+solr_admin_pass: SolrRocks
 
 # description: salt for the solr passwords (32 bit)
 # type: string
 solr_password_salt: ohn1Aec3ooke8choh6feexeej5Abai6a
-#solr_admin_hash: 'wW4EKWvEVjMQtI4/pFINKELUlh9LRoY6KjFYKf/KAnI= MWlbsi/3swsNVq7h4//BxJ6x6K/1ggFR+E06QElQ0Co='
