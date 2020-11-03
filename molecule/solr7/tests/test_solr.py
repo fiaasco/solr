@@ -20,6 +20,7 @@ def test_solr_cores(host):
     assert 'drupal7' in solr_cores.stdout
     assert 'drupal8' in solr_cores.stdout
 
+
 def test_solr_ping(host):
     """ Testing whether the cores are online
     """
