@@ -30,10 +30,16 @@ def solrBasicAuthString(password: str, salt: bytes):
     return f"{str(b64hashed, 'ascii')} {str(b64salt, 'ascii')}"
 
 
-def solr_basicauth_filter(solr_pass):
+def solr_basicauth_filter(solr_pass, salt=None):
 
-    salt = urandom(32)
-    return solrBasicAuthString(solr_pass, salt)
+    # generate random salt if not passed
+    if salt is None:
+        bsalt = urandom(32)
+    # or convert to bytes if string passed
+    else:
+        bsalt = salt.encode('utf-8')
+
+    return solrBasicAuthString(solr_pass, bsalt)
 
 
 class FilterModule(object):

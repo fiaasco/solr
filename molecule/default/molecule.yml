@@ -29,6 +29,7 @@ provisioner:
     group_vars:
       all:
         solr_java_mem: "-Xms256m -Xmx256m"
+        solr_password_salt: UdaR6if8queeb5bahZ5Uuhaiwie7Rook
         solr_cores:
           - name: drupal7
             user: d7

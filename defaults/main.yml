@@ -111,6 +111,8 @@ solr_admin_user: fiaas
 # type: string
 solr_admin_pass: SolrRocks
 
-# description: salt for the solr passwords (32 bit)
+# description: Salt for the solr passwords (32 bit).
+#              Define a random 32 character string to make generated passwords idempotent.
+#              Leave undefined for random salts that will be regenerated on every run.
 # type: string
-solr_password_salt: ohn1Aec3ooke8choh6feexeej5Abai6a
+# solr_password_salt: ohn1Aec3ooke8choh6feexeej5Abai6a

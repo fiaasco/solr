@@ -4,10 +4,18 @@
   "blockUnknown": true,
   "class":"solr.BasicAuthPlugin",
   "credentials":{
+    {% if solr_password_salt is defined %}
+    "{{ solr_admin_user }}":"{{ solr_admin_pass|solr_basicauth(solr_password_salt) }}",
+    {% else %}
     "{{ solr_admin_user }}":"{{ solr_admin_pass|solr_basicauth }}",
+    {% endif %}
     {% for c in solr_cores %}
     {% if c.user is defined and c.pass is defined %}
+    {% if solr_password_salt is defined %}
+    "{{ c.user }}":"{{ c.pass|solr_basicauth(solr_password_salt) }}",
+    {% else %}
     "{{ c.user }}":"{{ c.pass|solr_basicauth }}",
+    {% endif %}
     {% endif %}
     {% endfor %}
   },
