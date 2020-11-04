@@ -1,5 +1,5 @@
 ---
-- name: Ensure that solr home exists
+- name: Config | Ensure that solr home exists
   file:
     dest: "{{ solr_home }}/data"
     state: directory
@@ -7,16 +7,24 @@
     group: "{{ solr_group }}"
     mode: 0755
 
-- name: Copy default file
+- name: Config | Copy solr.in.sh file for systemd defaults
   template:
-    src: solr.in.sh
+    src: solr.in.sh.j2
     dest: "{{ solr_config_file }}"
     owner: root
     group: root
     mode: 0644
   notify: restart solr
 
-- name: Copy systemd unit
+- name: Config | Copy solr.in.sh to solr install dir with auth
+  template:
+    src: solr.in.sh.j2
+    dest: "{{ solr_install_dir }}/bin/solr.in.sh"
+    owner: "{{ solr_user }}"
+    group: "{{ solr_group }}"
+    mode: 0644
+
+- name: Config | Copy systemd unit
   template:
     src: solr-systemd-unit.j2
     dest: "/etc/systemd/system/{{ solr_service_name }}.service"
@@ -25,7 +33,7 @@
     mode: 0644
   notify: reload systemd
 
-- name: Check if solr is configured
+- name: Config | Check if solr is configured
   stat:
     path: "{{ solr_home }}/{{ item }}"
   loop:
@@ -33,7 +41,7 @@
     - zoo.cfg
   register: solr_configured
 
-- name: Configure solr_home files if required
+- name: Config | Configure solr_home files if required
   copy:
     src: "{{ solr_install_dir }}/server/solr/{{ item.item }}"
     dest: "{{ solr_home }}/{{ item.item }}"
@@ -42,12 +50,12 @@
   loop: "{{ solr_configured.results }}"
   notify: restart solr
 
-- name: Check if log4j is configured
+- name: Config | Check if log4j is configured
   stat:
     path: "{{ solr_home }}/log4j2.xml"
   register: log4j_configured
 
-- name: Configure log4j if required
+- name: Config | Configure log4j if required
   copy:
     src: "{{ solr_install_dir }}/server/resources/log4j2.xml"
     dest: "{{ solr_home }}/"
@@ -55,7 +63,7 @@
   when: not log4j_configured.stat.exists
   notify: restart solr
 
-- name: Ensure that solr user owns the solr folder
+- name: Config | Ensure that solr user owns the solr folder
   file:
     path: "{{ solr_install_dir }}"
     state: directory
@@ -63,8 +71,21 @@
     owner: "{{ solr_user }}"
     group: "{{ solr_group }}"
 
-- name: Ensure solr is running
+- name: Config | Ensure solr is running
   service:
     name: "{{ solr_service_name }}"
     state: started
     enabled: true
+
+- name: Config | Enable security if required
+  template:
+    src: security.json.j2
+    dest: "{{ solr_home }}/security.json"
+    owner: "{{ solr_user }}"
+    group: "{{ solr_group }}"
+    mode: "0640"
+  when: solr_auth|bool
+  notify: restart solr
+
+- name: flush handlers to activate config
+  meta: flush_handlers

@@ -1,20 +1,22 @@
 ---
-- name: copy our default drupal8 config
+- name: Cores | Copy our default drupal8 config
   copy:
     src: drupal8-core/
     dest: /tmp/core-config/
 
-- name: Check current list of Solr cores.
+- name: Cores | Check current list of Solr cores.
   uri:
-    url: http://{{ solr_connect_host }}:{{ solr_port }}/solr/admin/cores
+    url: "http://{{ solr_connect_host }}:{{ solr_port }}/solr/admin/cores"
     return_content: true
+    url_username: "{{ solr_auth|ternary(solr_admin_user, omit) }}"
+    url_password: "{{ solr_auth|ternary(solr_admin_pass, omit) }}"
   register: solr_cores_current
   until: solr_cores_current.status == 200
   retries: 5
   delay: 5
   check_mode: false
 
-- name: Create solr cores if required
+- name: Cores | Create core directory if required
   file:
     path: "{{ solr_home }}/data/{{ item.name }}/conf"
     state: directory
@@ -24,7 +26,7 @@
   when: item.name not in solr_cores_current.content
   loop: "{{ solr_cores }}"
 
-- name: Copy configuration if required
+- name: Cores | Copy configuration if required
   command: "cp -r {{ solr_install_dir }}/example/files/conf/ {{ solr_home }}/data/{{ item.name }}/"
   become: true
   become_user: "{{ solr_user }}"
@@ -32,7 +34,7 @@
   loop: "{{ solr_cores }}"
   notify: restart solr
 
-- name: Create cores
+- name: Cores | Create cores
   command:
     argv:
       - "{{ solr_install_dir }}/bin/solr"

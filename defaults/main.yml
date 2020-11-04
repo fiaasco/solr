@@ -1,12 +1,13 @@
 ---
 # description: solr version to deploy
 # type: string
-solr_version: "8.4.1"
+solr_version: "8.6.3"
 
 # description: checksum for the solr archive
 #              conform the ansible get_url checksum format
 # type: string
-solr_checksum: "sha256:ec39e1e024b2e37405149de41e39e875a39bf11a53f506d07d96b47b8d2a4301"
+# yamllint disable-line rule:line-length
+solr_checksum: "sha512:f040d4489118b655bd27451a717c1f22f180c398638d944a53889a1a449e7032b016cecbff1979c2e8bfd51fc037dd613f3b968254001d34fe0e8fc4f6761dcf"
 
 # description: force solr reinstall
 # type: bool
@@ -43,6 +44,10 @@ solr_host: 127.0.0.1
 # description: solr port
 # type: int
 solr_port: 8983
+
+# description: solr java memory config
+# type: string
+solr_java_mem: "-Xms512m -Xmx512m"
 
 # description: solr hostname to connect to
 # type: string
@@ -84,9 +89,30 @@ solr_default_core_config_path: drupal8-core
 
 # description: solr core definition list
 #              item.src is optional, if not defined the solr_config_config_path will be used
+#              user and password will only be validated if solr_auth is enabled
 # type: list
 # example:
 # solr_cores:
 #   - name: core1
 #     src: /tmp/solr_config
+#     user: core_user
+#     pass: core_password
 solr_cores: []
+
+# description: enable solr authentication
+# type: bool
+solr_auth: true
+
+# description: solr admin user
+# type: string
+solr_admin_user: fiaas
+
+# description: solr admin password
+# type: string
+solr_admin_pass: SolrRocks
+
+# description: Salt for the solr passwords (32 bit).
+#              Define a random 32 character string to make generated passwords idempotent.
+#              Leave undefined for random salts that will be regenerated on every run.
+# type: string
+# solr_password_salt: ohn1Aec3ooke8choh6feexeej5Abai6a

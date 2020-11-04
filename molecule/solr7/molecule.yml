@@ -4,14 +4,14 @@ dependency:
 driver:
   name: docker
 scenario:
-  name: default
+  name: solr7
 lint: |
   set -e
   yamllint .
   ansible-lint molecule/default/*.yml
   flake8
 platforms:
-  - name: solr-debian-10
+  - name: solr7-debian10
     image: debian:10
     command: /lib/systemd/systemd
     privileged: true
@@ -28,6 +28,9 @@ provisioner:
   inventory:
     group_vars:
       all:
+        solr_version: "7.7.3"
+        # yamllint disable-line rule:line-length
+        solr_checksum: "sha512:ca9200c18cc19ab723fd4d10f257e27eb81dc8bc33401ebc4eb99178faf4033a2684f0f8b12ae7b659cfeb0f4c9d9e24aaac518a4e00fd28b69854a359a666ed"
         solr_java_mem: "-Xms256m -Xmx256m"
         solr_password_salt: UdaR6if8queeb5bahZ5Uuhaiwie7Rook
         solr_cores:
