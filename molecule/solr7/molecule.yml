@@ -8,7 +8,7 @@ scenario:
 lint: |
   set -e
   yamllint .
-  ansible-lint molecule/default/*.yml
+  ansible-lint
   flake8
 platforms:
   - name: solr7-debian10
