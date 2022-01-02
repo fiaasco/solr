@@ -1,5 +1,5 @@
 ---
-- name: Uninstall | Stop Apache Solr service
+- name: Uninstall | Stop Apache Solr service  # noqa ignore-errors
   service:
     name: "{{ solr_service_name }}"
     state: stopped
@@ -13,7 +13,7 @@
     - "/etc/systemd/system/{{ solr_service_name }}.service"
     - "/etc/default/{{ solr_service_name }}.service"
 
-- name: Uninstall | Kill all processes run by Solr user
+- name: Uninstall | Kill all processes run by Solr user  # noqa ignore-errors
   command: killall -u {{ solr_user }} -w
   changed_when: false
   ignore_errors: true

@@ -1,13 +1,13 @@
 ---
 # description: solr version to deploy
 # type: string
-solr_version: "8.6.3"
+solr_version: "8.11.1"
 
 # description: checksum for the solr archive
 #              conform the ansible get_url checksum format
 # type: string
 # yamllint disable-line rule:line-length
-solr_checksum: "sha512:f040d4489118b655bd27451a717c1f22f180c398638d944a53889a1a449e7032b016cecbff1979c2e8bfd51fc037dd613f3b968254001d34fe0e8fc4f6761dcf"
+solr_checksum: "sha512:4893f836aec84b03d7bfe574e59e305c03b5ede4a48020034fbe81440b8feee79e55fd9ead230e5b89b3f25124e9b56c1ddc4bb5c7f631cf4e846b9cab5f9a45"
 
 # description: force solr reinstall
 # type: bool
@@ -61,7 +61,7 @@ solr_download_url: https://archive.apache.org/dist/lucene/solr
 # type: string
 solr_download_path: "{{ solr_version }}/solr-{{ solr_version }}.tgz"
 
-# description: base directory for installation
+# description: base directory for installation (not created in role)
 # type: string
 solr_extract_path: /opt
 
@@ -116,3 +116,8 @@ solr_admin_pass: SolrRocks
 #              Leave undefined for random salts that will be regenerated on every run.
 # type: string
 # solr_password_salt: ohn1Aec3ooke8choh6feexeej5Abai6a
+
+# description: define to configure extra solr options if required
+# type: string
+# example:
+# solr_opts: "-Dlog4j2.formatMsgNoLookups=true"

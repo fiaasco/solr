@@ -17,6 +17,6 @@ def test_solr_service(host):
 def test_solr_cores(host):
     """ Testing whether the cores have been created
     """
-    solr_cores = host.run('curl http://localhost:8983/solr/admin/cores')
+    solr_cores = host.run('curl --user fiaas:SolrRocks http://localhost:8983/solr/admin/cores')
     assert 'drupal7' in solr_cores.stdout
     assert 'drupal8' in solr_cores.stdout

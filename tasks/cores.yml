@@ -1,5 +1,5 @@
 ---
-- name: Cores | Copy our default drupal8 config
+- name: Cores | Copy our default drupal8 config  # noqa risky-file-permissions
   copy:
     src: drupal8-core/
     dest: /tmp/core-config/
