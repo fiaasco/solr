@@ -11,10 +11,6 @@ lint:
   ansible-lint
   flake8
 platforms:
-  - name: solr-ubuntu-bionic
-    image: ubuntu:bionic
-    command: /lib/systemd/systemd
-    privileged: true
   - name: solr-ubuntu-focal
     image: ubuntu:focal
     command: /lib/systemd/systemd
@@ -33,6 +29,7 @@ provisioner:
     group_vars:
       all:
         solr_service_name: solr8
+        solr_password_salt: UdaR6if8queeb5bahZ5Uuhaiwie7Rook
         solr_cores:
           - name: drupal7
           - name: drupal8
