@@ -1,5 +1,7 @@
 ---
 galaxy_info:
+  role_name: solr
+  namespace: fiaasco
   author: Luc Stroobant
   description: Ansible solr multicore role with systemd support
 

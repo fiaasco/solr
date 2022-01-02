@@ -28,6 +28,9 @@
   file:
     dest: "{{ item }}"
     state: directory
+    owner: root
+    group: root
+    mode: "0775"
   with_items:
     - "{{ solr_extract_path }}"
     - "{{ solr_install_dir }}"

@@ -19,7 +19,7 @@ provisioner:
   name: ansible
   config_options:
     defaults:
-      callback_whitelist: profile_tasks
+      callbacks_enabled: profile_tasks
       jinja2_extensions: jinja2.ext.do
       gather_timeout: 30
       timeout: 30
@@ -33,6 +33,7 @@ provisioner:
         solr_checksum: "sha512:ca9200c18cc19ab723fd4d10f257e27eb81dc8bc33401ebc4eb99178faf4033a2684f0f8b12ae7b659cfeb0f4c9d9e24aaac518a4e00fd28b69854a359a666ed"
         solr_java_mem: "-Xms256m -Xmx256m"
         solr_password_salt: UdaR6if8queeb5bahZ5Uuhaiwie7Rook
+        solr_opts: "-Dlog4j2.formatMsgNoLookups=true"
         solr_cores:
           - name: drupal7
             user: d7
