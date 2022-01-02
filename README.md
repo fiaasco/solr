@@ -2,7 +2,6 @@
 
 ![Debian](https://github.com/fiaasco/solr/actions/workflows/debian.yml/badge.svg)
 ![Ubuntu](https://github.com/fiaasco/solr/actions/workflows/ubuntu.yml/badge.svg)
-![Solr7](https://github.com/fiaasco/solr/actions/workflows/solr7.yml/badge.svg)
 
 This is an Ansible solr role with systemd support, the service is configured similar to what happens with the solr install\_solr\_service.sh script, but by implementing the code in Ansible it allows systemd support and easier idempotent results.
 The role also allows to create cores with custom configuration if you configure a path in item.src in solr\_cores.

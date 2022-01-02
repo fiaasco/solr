@@ -11,8 +11,8 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: solr7-debian10
-    image: debian:10
+  - name: solr7-debian9
+    image: debian:9
     command: /lib/systemd/systemd
     privileged: true
 provisioner:
