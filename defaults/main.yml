@@ -61,7 +61,7 @@ solr_download_url: https://archive.apache.org/dist/lucene/solr
 # type: string
 solr_download_path: "{{ solr_version }}/solr-{{ solr_version }}.tgz"
 
-# description: base directory for installation
+# description: base directory for installation (not created in role)
 # type: string
 solr_extract_path: /opt
 
