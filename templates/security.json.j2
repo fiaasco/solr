@@ -10,11 +10,11 @@
     "{{ solr_admin_user }}":"{{ solr_admin_pass|solr_basicauth }}",
     {% endif %}
     {% for c in solr_cores %}
-    {% if c.user is defined and c.pass is defined %}
+    {% if c.pass is defined %}
     {% if solr_password_salt is defined %}
-    "{{ c.user }}":"{{ c.pass|solr_basicauth(solr_password_salt) }}",
+    "{{ c.user|default(c.name) }}":"{{ c.pass|solr_basicauth(solr_password_salt) }}",
     {% else %}
-    "{{ c.user }}":"{{ c.pass|solr_basicauth }}",
+    "{{ c.user|default(c.name) }}":"{{ c.pass|solr_basicauth }}",
     {% endif %}
     {% endif %}
     {% endfor %}
@@ -33,8 +33,8 @@
   "user-role":{
     "{{ solr_admin_user }}":"admin",
     {% for c in solr_cores %}
-    {% if c.user is defined and c.pass is defined %}
-    "{{ c.user }}":"admin-{{ c.name }}-collection",
+    {% if c.pass is defined %}
+    "{{ c.user|default(c.name) }}":"admin-{{ c.name }}-collection",
     {% endif %}
     {% endfor %}
   }
