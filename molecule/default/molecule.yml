@@ -11,8 +11,8 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: solr-debian-10
-    image: debian:10
+  - name: solr-debian-12
+    image: debian:12
     command: /lib/systemd/systemd
     privileged: true
 provisioner:
@@ -39,5 +39,3 @@ provisioner:
             pass: d8
 verifier:
   name: testinfra
-  lint:
-    name: flake8
